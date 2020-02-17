@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "C:\\ECNA\\formulariojquery.html",
+            "url": "C:\\ECNA\\formularioES2015HTML5.html",
             "webRoot": "${workspaceFolder}"
         }
     ]
