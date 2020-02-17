@@ -1,0 +1,21 @@
+fieldset, input {
+    border: 1px solid black;
+}
+
+input.bien {
+    border: 1px solid green;
+}
+
+input.mal {
+    border: 1px solid red;
+}
+
+span.mal {
+    color: red;
+}
+
+label {
+    display: inline-block;
+    width: 9em;
+}
+
