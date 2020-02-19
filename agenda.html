@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda</title>
+
+    <script src="js/agenda.js"></script>
+</head>
+<body>
+    <h1>Agenda</h1>
+
+    <h2 id="espera">Por favor, espere...</h2>
+
+    <table id="tabla">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th><a href="javascript:mostrarFormulario()">Añadir</a></th>
+            </tr>
+        </thead>
+        <tbody id="listado"></tbody>
+    </table>
+
+    <form id="formulario">
+        <input id="id" readonly />
+        <input id="nombre" />
+        <input id="apellidos" />
+        <button id="aceptar"></button>
+    </form>
+</body>
+</html>
