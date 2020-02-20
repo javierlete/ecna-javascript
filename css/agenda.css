@@ -1,0 +1,16 @@
+#mensaje {
+    border: 1px solid darkblue;
+    border-radius: 5px;
+    padding: 1em;
+    font-weight: bold;
+}
+
+.info {
+    background-color: lightblue;
+    color: black;
+}
+
+.error {
+    background-color: lightcoral;
+    color: black;
+}

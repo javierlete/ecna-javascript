@@ -1,29 +1,25 @@
 const URL = 'http://127.0.0.1:3000/personas/';
 
-window.onload = function() {
-    esperaOn();
+const ERROR = 'error';
+const INFO = 'info';
 
-    formularioOff();
+window.onload = function () {
+    mostrarMensaje();
+
+    ocultar('formulario');
 
     fetch(URL)
-        .then( resultado => resultado.json() )
-        .then( objeto => rellenarListado(objeto) );
+        .then(resultado => resultado.json())
+        .catch(() => mostrarMensaje('Error al obtener el listado', ERROR))
+        .then(objeto => {
+            rellenarListado(objeto);
+            mostrarMensaje('Se ha cargado el listado correctamente');
+        })
+        ;
 };
 
-function formularioOff() {
-    document.getElementById('formulario').style.display = 'none';
-}
-
-function esperaOn() {
-    this.document.getElementById('espera').style.display = 'block';
-}
-
-function esperaOff() {
-    this.document.getElementById('espera').style.display = 'none';
-}
-
 function rellenarListado(personas) {
-    const tbody = document.getElementById('listado');
+    const tbody = $('listado');
 
     personas.forEach(persona => {
         tbody.innerHTML += `
@@ -38,26 +34,64 @@ function rellenarListado(personas) {
             </tr>`;
     });
 
-    tablaOn();
+    mostrar('tabla');
 
-    esperaOff();
+    ocultar('mensaje');
 }
 
-function tablaOn() {
-    document.getElementById('tabla').style.display = 'block';
-}
-
-function tablaOff() {
-    document.getElementById('tabla').style.display = 'none';
-}
-
-function mostrarFormulario(id) {
-    esperaOn();
-    tablaOff();
+async function mostrarFormulario(id) {
+    mostrarMensaje();
+    ocultar('tabla');
 
     const operacion = id ? 'Modificar' : 'Añadir';
-    
-    document.getElementById('formulario').style.display = 'block';
 
-    document.getElementById('aceptar').innerText = operacion;
+    if (id) {
+        // fetch(URL + id)
+        //     .then(respuesta => respuesta.json())
+        //     .then(persona => {
+        //         $('id').value = persona.id;
+        //         $('nombre').value = persona.nombre;
+        //         $('apellidos').value = persona.apellidos;
+        //     })
+        //     ;
+
+        let respuesta = await fetch(URL + id);
+        let persona = await respuesta.json();
+
+        $('id').value = persona.id;
+        $('nombre').value = persona.nombre;
+        $('apellidos').value = persona.apellidos;
+    }
+
+
+
+
+
+    $('aceptar').innerText = operacion;
+
+    mostrar('formulario');
+    ocultar('mensaje');
+}
+
+function mostrar(id) {
+    $(id).style.display = 'block';
+}
+
+function ocultar(id) {
+    $(id).style.display = 'none';
+}
+
+function mostrarMensaje(mensaje, nivel) {
+    mensaje = mensaje || 'Por favor, espere...';
+    nivel = nivel || INFO;
+
+    var capaMensaje = $('mensaje');
+
+    capaMensaje.innerHTML = mensaje;
+    capaMensaje.className = nivel;
+    capaMensaje.style.display = 'block';
+}
+
+function $(id) {
+    return document.getElementById(id);
 }
